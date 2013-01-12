@@ -65,9 +65,10 @@ function update_graph(){
 					for (var i=0;i<consumption.length;i=i+1) { //todo: need to think about this logic!
 						graph_data[counter] = new Array();
 						if(i<10) {
-							axis_date=new Date(parseDate('2013-01-12 0'+i+':00:00 UTC'));//'2012-11-27 '+i+':00:00 UTC'));
+//							axis_date=new Date(parseDate('12/01/2013 0'+i+':00:00 UTC'));//'2012-11-27 '+i+':00:00 UTC'));
+							axis_date=new Date(parseDate(sel_fromdate+' 0'+i+':00:00 UTC'));//'2012-11-27 '+i+':00:00 UTC'));
 						} else {
-							axis_date=new Date(parseDate('2013-01-12 '+i+':00:00 UTC'));//'2012-11-27 '+i+':00:00 UTC'));
+							axis_date=new Date(parseDate(sel_fromdate+' '+i+':00:00 UTC'));//'2012-11-27 '+i+':00:00 UTC'));
 						}	
 						graph_data[counter]=[parseInt(axis_date.getTime(),10),consumption[i]];
 						counter++;
@@ -84,8 +85,11 @@ function update_graph(){
                                                         [ { data: graph_data, color: '#1275c2', label: 'Power Used', lines: { show: true }, points: { show: true }, yaxis: 1 } ],
                                                         { xaxes: [ { mode: 'time', timeformat: '%h',
 
-                                                                min: (new Date("<?php print(date("Y/m/d 00:00:00")); ?>")).getTime(),
-                                                              max: (new Date("<?php print(date("Y/m/d 23:59:59")); ?>")).getTime(),
+                                                                //min: (new Date("<?php print(date("Y/m/d 00:00:00")); ?>")).getTime(),
+
+								min: (new Date(parseDate(sel_fromdate+' 00:00:00 UTC')).getTime()),
+                                                              //max: (new Date("<?php print(date("Y/m/d 23:59:59")); ?>")).getTime(),
+									max: (new Date(parseDate(sel_fromdate+' 23:59:59 UTC')).getTime()),
                                                                 ticks: 24, tickLength: 1, minTickSize: [1, 'hour'], reserveSpace: true } ],
                                                           yaxes: [ { min: 0, alignTicksWithAxis: null, position: 'left', tickFormatter: showkwh } ],
                                                           legend: { show: false },
@@ -131,10 +135,10 @@ if (item) {
 					});
 					      };
 function parseDate(date) {
-    var m = /^(\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d) UTC$/.exec(date);
-    var tzOffset = new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]).getTimezoneOffset();
+    var m = /^(\d\d)\/(\d\d)\/(\d{4}) (\d\d):(\d\d):(\d\d) UTC$/.exec(date);
+    var tzOffset = new Date(+m[3], +m[2] - 1, +m[1], +m[4], +m[5], +m[6]).getTimezoneOffset();
 
-    return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5] - tzOffset, +m[6]);
+    return new Date(+m[3], +m[2] - 1, +m[1], +m[4], +m[5] - tzOffset, +m[6]);
 }
 
                         </script>
