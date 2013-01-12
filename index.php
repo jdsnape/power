@@ -21,7 +21,7 @@ require("config.php");
 <body>
         <div class="two columns">
                                         <h2>Power Consumption Today</h2>
-					<div id="controls">Date: <input id="fromdate" value="<?php echo date("d/m/Y");?>"> Resolution: <input id="resolution" value="15"> minutes</div><input type="submit" value="Go" onclick="javascript: update_graph()">
+					<div id="controls">Date: <input id="fromdate" value="<?php echo date("d/m/Y");?>"> Resolution: <input id="resolution" value="15"> minutes <input type="submit" value="Go" onclick="javascript: update_graph()"></div>
                                         <div id="graph"></div>
 					<div id="test"></div>
                                 </div>
@@ -57,12 +57,12 @@ function update_graph(){
 
 					var consumption = jQuery.parseJSON(html);
 
-					alert(consumption);
+					//alert(consumption);
 
 					//var axis_date=new Date();
 					var graph_data=new Array();
 					var counter=0;
-					for (var i=0;i<consumption.length;i=i+1) { //todo: need to think about this logic!
+					for (var i=0;i<consumption.length;i=i+1) { //todo: increase resolution
 						graph_data[counter] = new Array();
 						if(i<10) {
 //							axis_date=new Date(parseDate('12/01/2013 0'+i+':00:00 UTC'));//'2012-11-27 '+i+':00:00 UTC'));
@@ -77,12 +77,12 @@ function update_graph(){
 					}
 					//$('#canvas_id').empty();
 					//alert("here");
-					$("#test").html("hi");
-					alert(graph_data);
+					//$("#test").html("hi");
+					//alert(graph_data);
                                         function showkwh(v,axis) { return v.toFixed(axis.tickDecimals)+"kWh"; }
                                         function doPlot(position) {
                                                 $.plot($("#graph"),
-                                                        [ { data: graph_data, color: '#1275c2', label: 'Power Used', lines: { show: true }, points: { show: true }, yaxis: 1 } ],
+                                                        [ { data: graph_data, color: '#1275c2', label: 'Power Used', lines: { show: true }, points: { show: false }, yaxis: 1 } ],
                                                         { xaxes: [ { mode: 'time', timeformat: '%h',
 
                                                                 //min: (new Date("<?php print(date("Y/m/d 00:00:00")); ?>")).getTime(),
