@@ -21,7 +21,7 @@ require("config.php");
 <body>
         <div class="two columns">
                                         <h2>Power Consumption Today</h2>
-					<div id="controls">Date: <input type="date" id="fromdate" value="<?php echo date("d/m/Y");?>"> Resolution: <input id="resolution" value="15"> minutes</div><input type="submit" value="Go" onclick="javascript: update_graph()">
+					<div id="controls">Date: <input id="fromdate" value="<?php echo date("d/m/Y");?>"> Resolution: <input id="resolution" value="15"> minutes</div><input type="submit" value="Go" onclick="javascript: update_graph()">
                                         <div id="graph"></div>
 					<div id="test"></div>
                                 </div>
